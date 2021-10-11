@@ -1,3 +1,6 @@
+// import BSN from 'bootstrap.native';
+const modal = new Modal ('#exampleModal')
+console.log(modal);
 const colors = [
     '#FFFFFF',
     '#2196F3',
