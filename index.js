@@ -1,6 +1,3 @@
-// import BSN from 'bootstrap.native';
-const modal = new Modal ('#exampleModal')
-console.log(modal);
 const colors = [
     '#FFFFFF',
     '#2196F3',
@@ -9,19 +6,30 @@ const colors = [
     '#009688',
     '#795548',
   ];
+  const refs = {
+    body: document.body,
+    btnStart: document.querySelector('button[data-action = "start"]'),
+    btnStop: document.querySelector('button[data-action = "stop"]'),
+}
 
-  const randomIntegerFromInterval = (min, max) => {
-    return Math.floor(Math.random() * (max - min + 1) + min);
-  };
+const INTERVAL_DELAY = 1000;
+let intervalId = null;
 
-  import BSN from 'bootstrap.native';
+refs.btnStart.addEventListener('click', changeColor);
+refs.btnStop.addEventListener('click', onBtnStop);
 
-  // console.log('Это консоль !');
-  // const PROMT_DELAY = 1000;
-  // const MAX_PROMPT_ATTEMPTS = 3;
-  // let promptCounter = 0;
-  // let hasSubscribed = false;
-  //  setInterval (() => {
-  //    console.log('Подпишитесь на рассылку! -' + Date.now())
-  //   }, PROMT_DELAY);
+const randomIntegerFromInterval = (min, max) => {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+};
 
+function changeColor() {
+    intervalId = setInterval(() => {
+        refs.body.style.backgroundColor = colors[randomIntegerFromInterval(0, colors.length - 1)];
+    }, INTERVAL_DELAY);
+    refs.btnStart.disabled = true;
+};
+
+function onBtnStop() {
+    clearInterval(intervalId);
+    refs.btnStart.disabled = false;
+}
